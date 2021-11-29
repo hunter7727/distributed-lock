@@ -6,6 +6,7 @@ import com.hunter.lock.Lock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -18,8 +19,9 @@ public class GoodsService {
     private Lock lockService;
 
 
+    @Transactional(rollbackFor = Exception.class)
     public boolean buyByGoodsId(Integer goodsId, Integer userId) {
-        boolean lock = lockService.lock(userId);
+        boolean lock = lockService.lock(goodsId);
         if(lock){
             log.info(userId+":加锁成功");
             try{
@@ -34,7 +36,7 @@ public class GoodsService {
                     return true;
                 }
             }finally {
-                lockService.unLock(userId);
+                lockService.unLock(goodsId);
             }
         }else {
             log.error(userId+":加锁失败");

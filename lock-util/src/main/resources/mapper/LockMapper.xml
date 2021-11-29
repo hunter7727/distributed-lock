@@ -5,10 +5,10 @@
     <id column="id" property="id" jdbcType="INTEGER" />
   </resultMap>
   <insert id="insert">
-    insert into lock (id) values (#{id});
+    INSERT INTO `lock` SET id = #{id};
   </insert>
   <delete id="delete">
-    delete from lock where id = #{id};
+    DELETE FROM `lock` WHERE id = #{id};
   </delete>
 
 </mapper>
