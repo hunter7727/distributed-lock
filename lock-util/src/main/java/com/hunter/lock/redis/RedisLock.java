@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
 
-//@Primary
+@Primary
 @Service
 public class RedisLock implements Lock {
 
