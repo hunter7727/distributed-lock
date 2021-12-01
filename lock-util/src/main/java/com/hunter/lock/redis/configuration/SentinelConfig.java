@@ -9,7 +9,7 @@ import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
 
-@Configuration
+//@Configuration
 public class SentinelConfig {
 
     @Bean

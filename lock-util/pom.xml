@@ -39,6 +39,11 @@
             <artifactId>redisson</artifactId>
             <version>3.6.5</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.6.1</version>
+        </dependency>
     </dependencies>
 
     <build>

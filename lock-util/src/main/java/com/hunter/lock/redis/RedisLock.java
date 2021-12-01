@@ -17,8 +17,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * todo:这种模式需要优化，不知道为什么这个方式qps很低
  */
-@Primary
-@Service
+//@Primary
+//@Service
 public class RedisLock implements Lock {
 
 //    @Autowired
@@ -54,16 +54,19 @@ public class RedisLock implements Lock {
     public boolean unLock(Object key) {
         Object o = tl.get();
         if(o!=null){
-            String keyName = key+"";
             Map<String,RLock> map = (Map)o;
-            RLock rLock = map.get(keyName);
-            if(rLock!=null){
-                rLock.unlock();
-                map.remove(keyName);
-            }
-            if(CollectionUtils.isEmpty(map)){
-                tl.remove();
-            }
+           try{
+               String keyName = key+"";
+               RLock rLock = map.get(keyName);
+               if(rLock!=null){
+                   rLock.unlock();
+                   map.remove(keyName);
+               }
+           }finally {
+               if(CollectionUtils.isEmpty(map)){
+                   tl.remove();
+               }
+           }
         }
         return true;
     }
